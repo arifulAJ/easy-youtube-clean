@@ -1,5 +1,6 @@
 import axios from "axios";
-const api = "AIzaSyCeNZaGCnUZo4rjwNANJucwYtCQ8Pd_dPQ";
+
+const api = import.meta.env.VITE_YOUTUBE_API_KEY;
 
 const getPlaylistItem = async (playlistId, pageToken = "", result = []) => {
   const URL = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails%2Csnippet&maxResults=50&playlistId=${playlistId}&key=${api}&pageToken=${pageToken}`;
@@ -18,6 +19,7 @@ const getPlaylist = async (playlistId) => {
   const URL = `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&id=${playlistId}&key=${api}`;
 
   const { data } = await axios.get(URL);
+
   let playlistItems = await getPlaylistItem(playlistId);
   const content = playlistItems.map((content) => {
     const { videoId } = content?.contentDetails;

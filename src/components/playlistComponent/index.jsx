@@ -30,6 +30,7 @@ const PlaylistComponents = () => {
                     playListThumbnail={item.playlistThumbnail}
                     playListTitle={item.playlistTitle}
                     channelTitle={item.channelTitle}
+                    item={item}
                   />
                 </Grid>
               ))}
@@ -37,11 +38,6 @@ const PlaylistComponents = () => {
           )}
         </Container>
       )}
-      {/* <Alert variant="filled" severity="error">
-        <AlertTitle>Error</AlertTitle>
-        {error} please Provide Valid ID
-      </Alert> */}
-      {/* <ErrorMessage /> */}
     </>
   );
 };

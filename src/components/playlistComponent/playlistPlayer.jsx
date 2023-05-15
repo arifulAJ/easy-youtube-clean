@@ -16,6 +16,7 @@ import {
 } from "@mui/material/styles";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import StackPlayList from "./stackPlayList";
+import SideBarOfYouTubeVideo from "../../UI/ListItemsSideBar";
 const PlaylistPlayer = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -38,19 +39,17 @@ const PlaylistPlayer = () => {
   }
   function selectVideo(index) {
     setCurrentIndex(index);
-    console.log(index);
   }
 
   // stack video
   const onVideoSelect = (video) => {
     e.target.value(video);
     setCurrentIndex(video);
-    console.log(video);
   };
+
   const handleClick = (item) => {
     // Do something when the item is clicked
     setCurrentIndex(item);
-    console.log(item);
   };
   // useMediaQua
   const theme = useTheme();
@@ -70,7 +69,7 @@ const PlaylistPlayer = () => {
   let themes = createTheme();
   themes = responsiveFontSizes(theme);
   const rightBar = playlist.playlistItems;
-  console.log(currentIndex);
+
   return (
     <>
       <Box sx={{ paddingTop: "64px" }}>
@@ -100,7 +99,14 @@ const PlaylistPlayer = () => {
                       top: 0,
                       left: 0,
                       playerVars: {
-                        autoplay: 0,
+                        autoplay: 1,
+                        controls: 1,
+                        disablekb: 1,
+                        enablejsapi: 1,
+                        iv_load_policy: 3,
+                        modestbranding: 1,
+                        rel: 1,
+                        showinfo: 1,
                       },
                     }}
                   />
@@ -143,11 +149,24 @@ const PlaylistPlayer = () => {
                     md: 400,
                     lg: 400,
                   },
+                  height: "400px",
                 }}
               >
                 <h1>Fetch all playlist video </h1>
 
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <SideBarOfYouTubeVideo
+                  rightBar={rightBar}
+                  handleClick={handleClick}
+                  vId={vId}
+                  currentIndex={currentIndex}
+                />
+                {/* <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "300px",
+                  }}
+                >
                   {rightBar.map((item, index) => (
                     <StackPlayList
                       onVideoSelect={handleClick}
@@ -157,7 +176,7 @@ const PlaylistPlayer = () => {
                       item={item}
                     />
                   ))}
-                </Box>
+                </Box> */}
               </Box>
             </Grid>
           </Grid>

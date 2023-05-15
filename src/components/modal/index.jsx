@@ -10,17 +10,40 @@ import { useStoreActions } from "easy-peasy";
 
 const ModalPlaylist = ({ handleClose, open }) => {
   const [state, setState] = useState("");
-  const [playlistInput, setPlaylistInput] = useState("");
+
   const playlist = useStoreActions((actions) => actions.playlists);
+
+  // get id from plylist url
+  function getPlaylistIdFromUrl(url) {
+    const regex = /list=([a-zA-Z0-9_-]{34})/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+  }
   console.log(state);
+  const handelKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handelSubmit(e);
+    }
+  };
+
+  // Recent action
+
+  const { recent } = useStoreActions((state) => state.recentPlaylist);
+
   const handelSubmit = (event) => {
     event.preventDefault();
-    const input = event.target.elements;
-    console.log(input);
+
     if (!state) {
-      alert("this is not valid");
+      alert("please provied playlist url or id");
     } else {
-      playlist.getPlaylist(state);
+      const playlistId = getPlaylistIdFromUrl(state);
+      if (playlistId) {
+        playlist.getPlaylist(playlistId);
+        recent(playlistId);
+      } else {
+        playlist.getPlaylist(state);
+        recent(state);
+      }
 
       setState("");
 
@@ -45,6 +68,7 @@ const ModalPlaylist = ({ handleClose, open }) => {
             name="state"
             fullWidth
             variant="standard"
+            onKeyDown={handelKeyDown}
             onChange={(event) => setState(event.target.value)}
           />
         </DialogContent>

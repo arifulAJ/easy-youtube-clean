@@ -1,6 +1,15 @@
 import { Box, Typography, Grid } from "@mui/material";
 const StackPlayList = ({ item, onVideoSelect, vid, currentIndex, index }) => {
   const { title, description, thumbnails } = item;
+  const videoUrl =
+    "https://www.youtube.com/watch?v=dS3dMXflzag&list=PL_XxuZqN0xVD0op-QDEgyXFA4fRPChvkl"; // URL entered by the user
+
+  // Regular expression to extract the video ID from the URL
+  const regex = /[?&]v=([^&#]*)/;
+
+  // Extract the video ID from the URL using the regular expression
+  const match = regex.exec(videoUrl);
+  const videoId = match && match[1];
 
   return (
     <>
@@ -18,6 +27,7 @@ const StackPlayList = ({ item, onVideoSelect, vid, currentIndex, index }) => {
           borderRadius: "3px",
           padding: "2px",
         }}
+        // onClick={() => onVideoSelect(videoId)}
         onClick={() => onVideoSelect(vid[index])}
       >
         <Box>

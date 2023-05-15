@@ -19,16 +19,19 @@ const playlistModal = persist({
     async ({ addPlaylist, setLoading, setError }, playlistId, { getState }) => {
       if (getState().data[playlistId]) {
         setError("");
+
+        alert("you already added this playlist ");
         return;
       }
       try {
         setLoading(true);
         setError("");
         const playlist = await getPlaylist(playlistId);
+
         addPlaylist(playlist);
       } catch (e) {
         setError(e?.message || "something went wrong");
-        alert(`${e.message}"please provide valid iD"`);
+        alert(`${e.message}"please provide valid iD or playlist"`);
       } finally {
         setLoading(false);
       }

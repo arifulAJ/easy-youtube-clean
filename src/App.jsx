@@ -10,8 +10,6 @@ import {
 } from "react-router-dom";
 import PlaylistComponents from "./components/playlistComponent";
 
-import Footer from "./components/Footer";
-
 import NotFoundPage from "./UI/ErrorText";
 import RecentComponent from "./components/recent";
 import FavoriteComponent from "./components/favorite";
@@ -42,8 +40,6 @@ const Root = () => {
   return (
     <>
       <NavigationBar />
-
-      <Footer />
     </>
   );
 };

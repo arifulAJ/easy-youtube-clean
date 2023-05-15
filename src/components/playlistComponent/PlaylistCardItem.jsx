@@ -9,13 +9,36 @@ import {
   Button,
   Stack,
 } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Link } from "react-router-dom";
+
+import { useStoreActions, useStoreState } from "easy-peasy";
+import FavoriteComponent from "../favorite";
+
 const PlaylistCardItem = ({
   playListThumbnail,
   playListTitle,
   channelTitle,
   playlistId,
+  item,
 }) => {
+  const { addToFavorite, removeToFavorite } = useStoreActions(
+    (state) => state.favorites
+  );
+  const favoritePlaylists = useStoreState((state) => state.favorites.items);
+  const isFavorite = favoritePlaylists.some(
+    (item) => item.playlistId === playlistId
+  );
+
+  const handelFavoriteItems = () => {
+    if (isFavorite) {
+      removeToFavorite(item.playlistId);
+    } else {
+      addToFavorite(item);
+    }
+  };
+
   return (
     <>
       <Card
@@ -67,6 +90,10 @@ const PlaylistCardItem = ({
                 Start Tutorial
               </Typography>
             </Stack>
+          </Button>
+
+          <Button onClick={handelFavoriteItems}>
+            {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </Button>
         </CardActions>
       </Card>
